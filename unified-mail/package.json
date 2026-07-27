@@ -1,0 +1,88 @@
+{
+  "name": "unified-mail",
+  "version": "0.1.0",
+  "description": "A free, open-source unified inbox for Gmail and Outlook (Superhuman-style)",
+  "main": "./out/main/index.js",
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "test": "vitest run",
+    "postinstall": "electron-builder install-app-deps",
+    "package": "electron-vite build && electron-builder"
+  },
+  "dependencies": {
+    "@tiptap/pm": "^2.6.6",
+    "@tiptap/react": "^2.6.6",
+    "@tiptap/starter-kit": "^2.6.6",
+    "better-sqlite3": "^12.2.0",
+    "dotenv": "^16.4.5",
+    "hls.js": "^1.5.13",
+    "music-metadata": "^10.5.0",
+    "pdfjs-dist": "^4.10.38",
+    "react-window": "^1.8.10"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-window": "^1.8.8",
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron": "^32.1.2",
+    "electron-builder": "^25.0.5",
+    "electron-vite": "^2.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.6",
+    "vitest": "^2.1.1"
+  },
+  "build": {
+    "appId": "com.unifiedmail.app",
+    "productName": "Unified Mail",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".env",
+        "to": ".env",
+        "filter": ["**/*"]
+      }
+    ],
+    "asarUnpack": [
+      "**/node_modules/better-sqlite3/**"
+    ],
+    "mac": {
+      "target": ["dmg"],
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "portable": {
+      "artifactName": "UnifiedMail-portable-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "category": "Network"
+    }
+  }
+}

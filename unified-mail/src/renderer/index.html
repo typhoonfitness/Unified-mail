@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      CSP notes:
+      - script-src 'self' only (no inline scripts in the renderer).
+      - style-src allows inline + Google Fonts stylesheet.
+      - img-src allows https: so that *opt-in* remote images can load. Email
+        images are stripped by default in the reading pane and only restored
+        after the user explicitly clicks "load images".
+      - frame-src 'self' permits the sandboxed srcdoc iframe used to render mail.
+    -->
+    <!--
+      media-src/connect-src allow local file blobs and remote media (IPTV/HLS);
+      worker-src blob: is required by hls.js's web worker.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: media:; media-src 'self' blob: https: http: media:; connect-src 'self' https: http: media:; worker-src 'self' blob:; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://open.spotify.com"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=VT323&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=EB+Garamond:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Unified Mail</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
